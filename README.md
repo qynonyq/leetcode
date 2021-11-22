@@ -1,4 +1,2 @@
-# leetcode
-Leetcode problems solutions
-### profile
-https://leetcode.com/zabral/
+# Leetcode problems solutions
+**Profile**: https://leetcode.com/zabral/
