@@ -1,8 +1,8 @@
 package problems
 
 import (
-	"github.com/stretchr/testify/assert"
 	"math"
+	"reflect"
 	"testing"
 )
 
@@ -71,7 +71,9 @@ func TestTwoSum(t *testing.T) {
 	for _, in := range inputs {
 		t.Run(in.desc, func(t *testing.T) {
 			result := TwoSum(in.nums, in.target)
-			assert.Equal(t, in.expected, result)
+			if !reflect.DeepEqual(in.expected, result) {
+				t.Errorf("expected %#v, got %#v", in.expected, result)
+			}
 		})
 	}
 }
