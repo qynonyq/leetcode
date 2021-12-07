@@ -1,8 +1,6 @@
 TEST?=$$(go list ./...)
 GOFMT_FILES?=$$(find . -name '*.go')
 
-default: fmt
-
 fmt:
 	gofmt -w -s $(GOFMT_FILES)
 
