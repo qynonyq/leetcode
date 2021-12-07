@@ -19,16 +19,7 @@ build_windows: fmtcheck
 test: fmtcheck
 	go test $(TEST) || exit 1
 	echo $(TEST) | \
-		xargs -t -n4 go test $(TESTARGS) -cover -timeout=30s -parallel=4
-
-testmock_k8saas: fmtcheck
-	TF_ACC=1 TF_ACC_MOCK_MCS=1 go test $(TEST) -run=TestMockAcc $(TESTARGS) -timeout 120m
-
-testacc_k8saas: fmtcheck
-	TF_ACC=1 go test -run=TestAccKubernetes $(TEST) $(TESTARGS) -timeout 120m
-
-testacc_dbaas: fmtcheck
-	TF_ACC=1 go test -run=TestAccDatabase $(TEST) -v $(TESTARGS) -timeout 120m
+		xargs -t -n4 go test $(TESTARGS) -cover -timeout=30s -parallel=16
 
 vet:
 	@echo "go vet ."
@@ -60,5 +51,4 @@ lint:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.1
 	golangci-lint run ./...
 
-.PHONY: build test testacc vet fmt fmtcheck errcheck test-compile website website-test lint
-
+.PHONY: build test vet fmt fmtcheck errcheck test-compile lint

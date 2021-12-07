@@ -33,5 +33,3 @@ linters-settings:
   govet:
     disable:
       - copylocks
-  maligned:
-    suggest-new: true
