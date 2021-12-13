@@ -1,0 +1,18 @@
+name: release
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  send-notification:
+    name: Send notification to Telegram
+    runs-on: ubuntu-latest
+    steps:
+      - name: send message
+        uses: zabral/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            The new version is released: ${{ github.ref_name }}
+            See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}

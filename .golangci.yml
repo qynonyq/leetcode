@@ -1,0 +1,35 @@
+run:
+  deadline: 1m
+  skip-dirs:
+    - vendor
+
+issues:
+  max-per-linter: 0
+  max-same-issues: 0
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - dupl
+    - errcheck
+    - gas
+    - goconst
+    - gocritic
+    - gocyclo
+    - gofmt
+    - gosimple
+    - ineffassign
+    - misspell
+    - staticcheck
+    - structcheck
+    - stylecheck
+    - unconvert
+    - unused
+    - varcheck
+    - vet
+
+linters-settings:
+  govet:
+    disable:
+      - copylocks
