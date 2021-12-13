@@ -11,6 +11,8 @@ type ListNode struct {
 	Next *ListNode
 }
 
+var _ = addTwoNumbers(&ListNode{}, &ListNode{})
+
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1.Val == 0 && l1.Next == nil && l2.Val == 0 && l2.Next == nil {
 		return &ListNode{Val: 0}
