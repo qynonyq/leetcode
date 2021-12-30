@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/rand"
-	"log"
 	"math/big"
 	"path"
 	"regexp"
@@ -30,11 +29,9 @@ func Constructor() Codec {
 
 func (c *Codec) encode(longURL string) string {
 	if len(longURL) < 1 || len(longURL) > 10000 {
-		log.Println("wrong longURL size")
 		return ""
 	}
 	if ok := c.rx.MatchString(longURL); !ok {
-		log.Println("invalid url format")
 		return ""
 	}
 	encoded := randURL(6)
