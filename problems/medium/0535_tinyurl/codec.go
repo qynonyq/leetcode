@@ -1,22 +1,18 @@
 package main
 
 import (
+	"crypto/rand"
 	"log"
-	"math/rand"
+	"math/big"
 	"path"
 	"regexp"
-	"time"
 )
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
 
 const (
 	digits    = "0123456789"
 	letters   = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	alphanums = digits + letters
-	tinyUrl   = "https://tinyurl.com/"
+	tinyURL   = "https://tinyurl.com/"
 )
 
 type Codec struct {
@@ -32,29 +28,32 @@ func Constructor() Codec {
 	}
 }
 
-func (c *Codec) encode(longUrl string) string {
-	if len(longUrl) < 1 || len(longUrl) > 10000 {
-		log.Println("wrong longUrl size")
+func (c *Codec) encode(longURL string) string {
+	if len(longURL) < 1 || len(longURL) > 10000 {
+		log.Println("wrong longURL size")
 		return ""
 	}
-	if ok := c.rx.MatchString(longUrl); !ok {
+	if ok := c.rx.MatchString(longURL); !ok {
 		log.Println("invalid url format")
 		return ""
 	}
-	encoded := randUrl(6)
-	c.repo[encoded] = longUrl
-	return tinyUrl + encoded
+	encoded := randURL(6)
+	c.repo[encoded] = longURL
+	return tinyURL + encoded
 }
 
-func (c *Codec) decode(shortUrl string) string {
-	base := path.Base(shortUrl)
+func (c *Codec) decode(shortURL string) string {
+	base := path.Base(shortURL)
 	return c.repo[base]
 }
 
-func randUrl(n int) string {
+func randURL(n int) string {
 	rr := make([]byte, n)
 	for i := range rr {
-		rr[i] = alphanums[rand.Intn(len(alphanums))]
+		max := big.NewInt(int64(len(alphanums)))
+		random, _ := rand.Int(rand.Reader, max)
+		idx := random.Int64()
+		rr[i] = alphanums[idx]
 	}
 	return string(rr)
 }
